@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'reviews/css/feedback_form.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div>
+
+    <form method="POST" action=""> <!-- action emoty means when hit post, send to the same url -->
+        {% csrf_token %} <!-- this token is needed to forms in django for security -->
+        <p style="text-align: left; font-weight: bold">Título</p>
+        <div class = "form-title">
+            {{form.title}}
+            <div class="count" style="text-align: right">
+                <span id="title-counter">0</span>
+                <span id="title-max">/ 40</span>
+            </div>
+        </div>
+        <div class="inline-fields">
+            <p>Subject:</p>
+            <div class="field">
+                {{ form.subject }}
+            </div>
+            <p>Teacher:</p>
+            <div class="field">
+                {{ form.teachers }}
+            </div>
+        </div>
+        <p style="font-size: 14px">Can't find your subject/teacher?</p>
+        <a href="{% url 'subject-form' %}" class="btn btn-primary" style="font-size:14px;font-weight: bold">Add Subject</a>
+        /
+        <a href="{% url 'teacher-form' %}" class="btn btn-primary" style="font-size:14px;font-weight: bold">Add Teacher</a>
+        
+        <p style="text-align: left; font-weight: bold">Feedback</p>
+        {{ form.body }}
+        <p style="text-align: center; font-weight: bold">Stars (1-5)</p>
+        {{ form.stars }}
+        <br>
+        <br>
+        <input type="submit" value="Submit"/>
+    </form>
+</div>
+
+{% endblock content %}
+
+{% block extra_scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const titleInput = document.querySelector('input[name="title"]');
+        const counter = document.getElementById('title-counter');
+        const max = document.getElementById('title-max');
+
+        function updateCounter() {
+            const length = titleInput.value.length;
+            counter.textContent = length;
+            if (length === 40) {
+                counter.style.color = 'red';
+                max.style.color = 'red';
+            } else {
+                counter.style.color = 'black';
+                max.style.color = 'black';
+            }
+        }
+
+
+        updateCounter();
+
+
+        titleInput.addEventListener('input', updateCounter);
+    });
+</script>
+{% endblock %}

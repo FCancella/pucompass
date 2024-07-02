@@ -1,0 +1,20 @@
+<!-- subject_detail.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="subject-detail">
+    <h2>{{ subject.name }}</h2>
+    <a href="{% url 'add_opinion_subject' subject.id %}" class="btn-add">Add Feedback</a>
+    <div class="opinions">
+        <h3>Opinions</h3>
+        <ul>
+            {% for opinion in subject.opinions.all %}
+            <li>{{ opinion.feedback }}</li>
+            {% empty %}
+            <li>No feedback yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
+    

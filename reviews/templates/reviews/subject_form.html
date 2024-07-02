@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+    <form method="POST" action=""> <!-- action emoty means when hit post, send to the same url -->
+        {% csrf_token %} <!-- this token is needed to forms in django for security -->
+        {{form.as_p}}
+        <input type="submit" value="Submit"/>
+    </form>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+.teacher-info {
+    text-align: center;
+    margin: 20px auto;
+    max-width: 800px;
+    background-color: #fff; /* Fundo branco */
+    color: #333; /* Texto escuro */
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #ccc; /* Borda para destaque */
+    margin-bottom: 20px;
+}
+
+.teacher-info h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #000; /* Texto preto */
+}
+
+.teacher-info p {
+    font-size: 1.2em;
+    margin: 5px 0;
+    color: #000; /* Texto preto */
+}
+
+.teacher-profile {
+    text-align: center;
+    margin: 20px auto;
+    max-width: 800px;
+    background-color: #fff; /* Fundo branco */
+    color: #333; /* Texto escuro */
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #ccc; /* Borda para destaque */
+}
+
+.teacher-profile h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #000; /* Texto preto */
+}
+
+.feedback-list {
+    list-style: none;
+    padding: 0;
+}
+
+.feedback-item {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9; /* Fundo claro */
+    border: 1px solid #ddd; /* Borda clara */
+}
+
+.feedback-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.feedback-subject {
+    font-weight: bold;
+    color: #333; /* Texto escuro */
+}
+
+.feedback-author {
+    font-style: italic;
+    color: #666; /* Texto cinza */
+}
+
+.feedback-body {
+    margin: 10px 0;
+    color: #333; /* Texto escuro */
+}
+
+.feedback-divider {
+    border: 0;
+    height: 1px;
+    background: #ccc; /* Cor do divisor */
+    margin: 10px 0;
+}
+</style>
+
+
+<div class="teacher-info">
+    <h2>Informações do Professor</h2>
+    <p><strong>Nome:</strong> {{ teacher.name }}</p>
+    <p><strong>Email:</strong> {{ teacher.email }}</p>
+    <p><strong>Disciplinas:</strong>
+        {% if related_disciplines %}
+            {{ related_disciplines|join:", " }}
+        {% else %}
+            Nenhuma matéria relacionada
+        {% endif %}
+    </p>
+    <p><strong>Média de Estrelas:</strong> {{ average_stars|default:"Sem avaliações" }}</p>
+</div>
+
+<div class="teacher-profile">
+    <h2>Feedbacks</h2>
+    <ul class="feedback-list">
+        {% for feedback in feedbacks %}
+            <li class="feedback-item">
+                <div class="feedback-header">
+                    <span class="feedback-subject">
+                        {{ feedback.title }}
+                        {% if feedback.subject %}- {{ feedback.subject }}{% endif %}
+                        {% if feedback.subject and feedback.teachers %} - {% endif %}
+                        {% if feedback.teachers %}@{{ feedback.teachers.name }}{% endif %}
+                    </span>
+                    <span class="feedback-author">(by {{ feedback.author }})</span>
+                </div>
+                <p class="feedback-body">{{ feedback.body }}</p>
+                <hr class="feedback-divider"/>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock content %}

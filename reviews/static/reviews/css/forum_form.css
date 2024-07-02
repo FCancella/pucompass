@@ -1,0 +1,28 @@
+.room-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.content {
+    width: 70%;
+    text-align: center;
+}
+
+.feedback-body {
+    text-align: center;
+}
+
+.comment {
+    text-align: left;
+}
+
+.comment-author {
+    display: block;
+    text-align: left;
+}
+
+.comment-message {
+    text-align: left;
+}

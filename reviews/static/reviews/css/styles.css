@@ -1,0 +1,160 @@
+/* Reset some basic elements for a minimalist design */
+body, h1, h2, h3, p, ul, li, a {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    text-decoration: none;
+    color: #333; /* Dark gray text */
+}
+
+h1 {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4; /* Light gray background */
+}
+
+header {
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    margin-bottom: 20px;
+}
+
+main {
+    display: flex;
+    justify-content: top;
+    align-items: center;
+    flex-direction: column;
+    min-height: calc(100vh - 60px); /* Adjust based on header/footer height */
+    background-color: #fff;
+    padding: 20px;
+}
+
+/* Navigation and layout */
+nav a {
+    margin: 0 10px;
+    color: #007bff; /* Bootstrap blue for links */
+}
+
+/* Search bar styling */
+.search-bar {
+    max-width: 600px;
+    margin: 20px auto;
+    display: flex; /* Align the input and button in a row */
+}
+
+.search-bar input[type="text"] {
+    flex-grow: 1; /* Input takes available space */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px 0 0 5px;
+    font-size: 16px;
+    border-right: none; /* Remove right border to merge with button */
+}
+
+.search-bar button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+    border-left: none; /* Remove left border to merge with input */
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.search-bar button:hover {
+    background-color: #0056b3;
+}
+
+/* Content area styling */
+main {
+    background-color: #fff;
+    border: 1px solid #ddd; /* Light gray border */
+    padding: 20px;
+}
+
+/* Footer styling */
+footer {
+    text-align: center;
+    padding: 10px 0;
+    font-size: 0.8em;
+    color: #666; /* Light gray text */
+    background-color: #f4f4f4;
+}
+
+/* Table-like list of subjects */
+.subjects-list ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #eee; /* Light background for the list */
+    border-collapse: collapse;
+}
+
+.subjects-list li {
+    border: 1px solid #ddd; /* Light gray border for each item */
+    padding-left: 60px;
+    padding-right: 60px;
+    display: flex;
+}
+
+.subjects-list li:nth-child(odd) {
+    background-color: #f9f9f9; /* Zebra striping for the list */
+}
+
+.subjects-list a {
+    color: #007bff; /* Consistent link color */
+}
+
+.subject-detail {
+    margin: auto;
+    max-width: 800px; /* Limit the width of the content */
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+.subject-detail h2 {
+    margin-bottom: 15px;
+    color: #007bff; /* Style the heading color */
+}
+
+.btn-add {
+    display: inline-block;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.opinions {
+    margin-top: 20px;
+}
+
+.opinions h3 {
+    margin-bottom: 10px;
+}
+
+.opinions ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.opinions li {
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}

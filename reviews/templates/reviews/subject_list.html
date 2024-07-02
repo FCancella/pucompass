@@ -1,0 +1,16 @@
+<!-- reviews/templates/reviews/subject_list.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Subjects List</h1>
+  <form method="get" action="">
+    <input type="text" name="query" placeholder="Search subjects...">
+    <button type="submit">Search</button>
+  </form>
+  <ul>
+    {% for subject in subjects %}
+      <li><a href="{% url 'subject_detail' code=subject.code %}">{{ subject.code }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}

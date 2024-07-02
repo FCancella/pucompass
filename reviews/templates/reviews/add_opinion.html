@@ -1,0 +1,13 @@
+<!-- add_opinion.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="add-opinion">
+    <h2>Add Opinion</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</div>
+{% endblock %}

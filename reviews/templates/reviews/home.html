@@ -1,0 +1,84 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'reviews/css/home-page.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="home-container" style="display: grid;grid-template-columns: 1fr 3fr 1fr;gap: 5%;">
+    <div class="search-bar" style="width: 100%;display: flex;justify-content: center;align-items: center">
+        <form method="GET" action="." style="display: flex; align-items: center">
+            <input type="text" name="q" placeholder="Search subjects...">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <div>
+        <h1>Feed</h1>
+        
+    </div>
+
+    <a href="{% url 'choose-room-type' %}">Create Room</a>
+    <div class="subjects-list" style="display: flex; flex-direction: column; align-items: center; text-align: center; margin: 0 auto; width: 100%;">
+        <h2>Subjects</h2>
+        <ul>
+            {% for subject in subjects %}
+            <li><a href="{% url 'subject-profile' subject.code %}">{{ subject.code }}</a></li>
+            {% empty %}
+            <li>No subjects found.</li>
+            {% endfor %}
+        </ul>
+        <h2>Teachers</h2>
+        <ul>
+            {% for teacher in teachers %}
+            <li><a href="{% url 'teacher-profile' teacher.id %}">{{ teacher.name }}</a></li>
+            {% empty %}
+            <li>No teachers found.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div>
+        {% for feedback in feedbacks %}
+            <div style="border: 1px solid #ccc; padding: 15px; margin: 10px 0; border-radius: 5px;width: 100%">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <div class="name-post">
+                        <a href="{% url 'user-profile' feedback.author.id %}" style="font-weight: bold;">@{{ feedback.author.username }}</a>
+                        {% if feedback.teachers or feedback.subject %}
+                            <div>
+                                {% if feedback.teachers %}
+                                    <span style="font-weight: bold;">Teacher:</span> {{ feedback.teachers }}
+                                {% endif %}
+                                {% if feedback.subject %}
+                                    <span style="font-weight: bold;">Subject:</span> {{ feedback.subject }}
+                                {% endif %}
+                            </div>
+                        {% else %}
+                            <div>Off-Topic</div>
+                        {% endif %}
+                    </div>
+                    {% if request.user == feedback.author or request.user.is_staff %}
+                    <div>
+                        <a href="{% url 'delete-feedback' feedback.id %}" style="color: red;"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div style="text-align: left; font-weight: bold"><a href="{% url 'feedback' feedback.id %}">{{feedback.title}}</a></div>
+
+                {% if feedback.body|length > 230 %}
+                  <p style="text-align: left">{{ feedback.body|slice:":230" }}...</p>
+                {% else %}
+                  <p style="text-align: left">{{ feedback.body }}</p>
+                {% endif %}
+            </div>
+        {% empty %}
+        <div>No reviews yet...</div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,77 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+{% extends 'base.html' %}
+
+{% load static %}
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'reviews/css/forum_form.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="room-container">
+    <div class="content">
+        <small>Criado por @{{feedback.author}} em {{feedback.created|timesince}}</small>
+        <h1>{{feedback.title}}</h1>
+
+        <p>{{feedback.subject}} - {{feedback.teachers}}</p>
+
+        <p class="feedback-body">{{feedback.body}}</p>
+
+        <div class="comment-wrapper">
+            <h3>Conversation</h3>
+            <hr>
+            {% if request.user.is_authenticated %}
+            <div class="comment-form">
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <input type="text" name="message" placeholder="Write your message here..." required />
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+            {% else %}
+        <strong>To write a message, first login</strong>
+        {% endif %}
+            {% for el in feedback_messages %}
+            <div>
+                {% if request.user == el.user or request.user.is_staff %}
+                    <a href="{% url 'delete-message' el.id %}">Delete</a>
+                    <a href="{% url 'update-message' el.id %}">Update</a>
+                {% endif %}
+
+                <div class="comment-container" style="display: flex;justify-content: flex-start;">
+                    <div class="voting-section" style="padding-right: 1.2%">
+                        <a href="{% url 'upvote' el.id %}"><i class="fa-solid fa-angle-up"></i></a>
+                        <p>{{ el.score }}</p>
+                        <a href="{% url 'downvote' el.id %}"><i class="fa-solid fa-angle-down"></i></a>
+                    </div>
+                    <div class="comment-content">
+                        <a href="{% url 'user-profile' el.author.id %}">
+                            <small class="comment-author">@{{el.author}} - {{el.created|timesince}}</small>
+                        </a>
+                        <p class="comment-message">{{el.message}}</p>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            {% endfor %}
+        </div>
+
+
+    </div>
+    <hr>
+    <div>
+        <h3>Participants</h3>
+        <br>
+
+        {% for user in participants %}
+        <div>
+           <p>@{{user.username}}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content%}
+
+

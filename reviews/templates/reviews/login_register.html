@@ -1,0 +1,72 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'reviews/css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+
+{% if page == 'login' %}
+
+<div id="box">
+    <form method="POST" action="">
+        {% csrf_token %}
+        <p class="title">Login</p>
+        <div class="input-container {% if messages %}error{% endif %}">
+            <i class="fa fa-user icon"></i>
+            <input type="text" name="username" placeholder="Enter username"/>
+        </div>
+
+        <div class="input-container {% if messages %}error{% endif %}">
+            <i class="fa fa-lock icon"></i>
+            <input type="password" name="password" placeholder="Enter password"/>
+        </div>
+        {% for msg in messages %}
+            <p class="error">{{msg}}</p>
+        {% endfor %}
+        <div>
+            {# <a id="forgot" href="{% url 'forgotPassword' %}">Sign Up</a> #}
+            <a id="forgot" href="{% url 'login' %}">Forgot Password?</a>
+        </div>
+        <input type="submit" value="Login"/>
+    </form>
+
+    <p> Haven't signed up yet?</p>
+    <a id="signup-login" href="{% url 'register' %}">Sign Up</a>
+
+</div>
+
+{% else %}
+
+<div id="box">
+    <form method="POST" action="">
+        {% csrf_token %}
+        <p class="title">Register</p>
+        <div class="input-container {% if messages %}error{% endif %}">
+            <i class="fa fa-user icon"></i>
+            {{form.username}}
+        </div>
+        {{form.username.help_text}}
+        <div class="input-container {% if messages %}error{% endif %}">
+            <i class="fa fa-lock icon"></i>
+            {{form.password1}}
+        </div>
+        {{form.password1.help_text}}
+        <div class="input-container {% if messages %}error{% endif %}">
+            <i class="fa fa-lock icon"></i>
+            {{form.password2}}
+        </div>
+        {{form.password2.help_text}}
+        
+        <input type="submit" value="Register"/>
+    </form>
+
+    <p> Already signed up?</p>
+    <a id="signup-login" href="{% url 'login' %}">Login</a>
+
+</div>
+
+{% endif %}
+{% endblock content %}

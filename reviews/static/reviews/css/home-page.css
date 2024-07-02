@@ -1,0 +1,18 @@
+.home-container{
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    gap: 5%;
+}
+
+.title-post{
+    text-align: left;
+}
+
+.name-post{
+    text-align: left;
+}
+
+#lixo{
+    color: blue;
+    cursor: pointer;
+}
