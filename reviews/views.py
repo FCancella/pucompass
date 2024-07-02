@@ -238,11 +238,11 @@ def teacherProfile(request, pk):
     average_stars = calculate_average_stars(feedbacks)
     related_disciplines = list(set(feedback.subject.name for feedback in feedbacks if feedback.subject is not None))
     if not related_disciplines:
-        related_disciplines = ["Nenhuma matéria relacionada"]  # Essa foi a mudança principal do commit do front teacher profile
+        related_disciplines = ["Nenhuma matéria relacionada"]
     context = {
         'teacher': teacher,
         'feedbacks': feedbacks,
-        'related_disciplines': related_disciplines,  # Essa foi a mudança principal do commit do front teacher profile
+        'related_disciplines': related_disciplines,
         'average_stars': average_stars
     }
     return render(request, 'reviews/teacher_profile.html', context)
