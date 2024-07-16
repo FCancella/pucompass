@@ -91,7 +91,7 @@
     <p><strong>Nome:</strong> {{ teacher.name }}</p>
     <p><strong>Email:</strong> {{ teacher.email }}</p>
     <p><strong>Disciplinas:</strong>
-        {% comment %} Essa foi a mudança principal do commit do front teacher profile {% endcomment %}
+        {% comment %} Front teacher profile {% endcomment %}
         {% if related_disciplines %}
             {{ related_disciplines|join:", " }}
         {% else %}

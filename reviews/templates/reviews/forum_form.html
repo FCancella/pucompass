@@ -1,10 +1,10 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
 {% extends 'base.html' %}
+{% comment %} Front do Forum {% endcomment %}
 
 {% load static %}
 {% block extra_styles %}
     <link rel="stylesheet" href="{% static 'reviews/css/forum_form.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 {% endblock %}
 
 {% block content %}
@@ -41,9 +41,15 @@
 
                 <div class="comment-container" style="display: flex;justify-content: flex-start;">
                     <div class="voting-section" style="padding-right: 1.2%">
-                        <a href="{% url 'upvote' el.id %}"><i class="fa-solid fa-angle-up"></i></a>
-                        <p>{{ el.score }}</p>
-                        <a href="{% url 'downvote' el.id %}"><i class="fa-solid fa-angle-down"></i></a>
+                        {% if request.user.is_authenticated %}
+                            <a href="{% url 'upvote' el.id %}"><i class="fa-solid fa-angle-up"></i></a>
+                            <p>{{ el.score }}</p>
+                            <a href="{% url 'downvote' el.id %}"><i class="fa-solid fa-angle-down"></i></a>
+                        {% else %}
+                            <a href="{% url 'login' %}"><i class="fa-solid fa-angle-up"></i></a>
+                            <p>{{ el.score }}</p>
+                            <a href="{% url 'login' %}"><i class="fa-solid fa-angle-down"></i></a>
+                        {% endif %}
                     </div>
                     <div class="comment-content">
                         <a href="{% url 'user-profile' el.author.id %}">

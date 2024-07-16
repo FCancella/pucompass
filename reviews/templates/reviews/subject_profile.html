@@ -90,6 +90,7 @@
     <p><strong>Nome:</strong> {{ subject.name }}</p>
     <p><strong>Código:</strong> {{ subject.code }}</p>
     <p><strong>Professores:</strong>
+        {% comment %} Front subject profile {% endcomment %}
         {% if related_teachers %}
             {{ related_teachers|join:", " }}
         {% else %}

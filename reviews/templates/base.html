@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <a href="{% url 'home' %}"><h1>PUCOMPASS org</h1></a>
+        <a href="{% url 'home' %}"><h1>PUCOMPASS</h1></a>
 
         {% if request.user.is_authenticated %}
         <p><a href="{% url 'user-profile' request.user.id %}">Hello <span style="color: blue">{{request.user}}</span>!</a></p>

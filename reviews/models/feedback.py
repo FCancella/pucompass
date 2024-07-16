@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from .entities import Subject, Teacher
 
 
+# PEP-257
 class Feedback(models.Model):
     """
     Model representing feedback for a subject or teacher.
@@ -19,12 +20,15 @@ class Feedback(models.Model):
         created (datetime): The date and time when the feedback was created.
         stars (float): The star rating for the feedback, between 1 and 5, allowing half numbers.
     """
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, null=True, blank=True)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE,
+                                null=True, blank=True)
     title = models.CharField(max_length=40)
     body = models.TextField()
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    teachers = models.ForeignKey(Teacher, on_delete=models.SET_NULL, null=True, blank=True)
-    participants = models.ManyToManyField(User, related_name='participants', blank=True)
+    teachers = models.ForeignKey(Teacher, on_delete=models.SET_NULL,
+                                 null=True, blank=True)
+    participants = models.ManyToManyField(User, related_name='participants',
+                                          blank=True)
     created = models.DateTimeField(auto_now_add=True)
 
     def validate_half_number(self):
@@ -39,10 +43,13 @@ class Feedback(models.Model):
         """
 
         if self * 2 % 1 != 0:
-            raise ValidationError('Value must be a whole number or a half number.')
+            raise ValidationError('Value must be a whole or half number.')
 
-    stars = models.FloatField(validators=[MinValueValidator(1), MaxValueValidator(5), validate_half_number],
-                              default=None, null=True, blank=True)
+    stars = models.FloatField(
+        validators=[MinValueValidator(1),
+                    MaxValueValidator(5),
+                    validate_half_number],
+        default=None, null=True, blank=True)
 
     def __str__(self):
         return self.body[:20]
@@ -93,7 +100,8 @@ class Vote(models.Model):
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    message = models.ForeignKey(Messages, related_name='votes', on_delete=models.CASCADE)
+    message = models.ForeignKey(Messages, related_name='votes',
+                                on_delete=models.CASCADE)
     vote_type = models.CharField(max_length=4, choices=VOTE_TYPE_CHOICES)
 
     class Meta:
